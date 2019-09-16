@@ -26,18 +26,13 @@ public class HelloService {
         logger.info("Service hello() started.");
         String apiUrl = "http://localhost:8090/hello"; // URLは、本来はEurekaなどのService Discoveryで取得する
         CheckedFunction0<HelloResource> decorateSupplier =
-                CircuitBreaker.decorateCheckedSupplier(circuitBreaker,
+                circuitBreaker.decorateCheckedSupplier(
                         () -> restTemplate.getForObject(apiUrl, HelloResource.class));
         Try<HelloResource> result = Try.of(decorateSupplier)
-//                .onFailure(this::onFailureHello) // 失敗時のイベント処理
                 .recover(this::recoverHello); // 失敗時の代替処理
         HelloResource helloResource = result.get();
         logger.info("Service hello() finished. Circuit = {}", circuitBreaker.getState());
         return helloResource;
-    }
-
-    private void onFailureHello(Throwable throwable) {
-        logger.error("Error in Service: ", throwable);
     }
 
     private HelloResource recoverHello(Throwable throwable) {

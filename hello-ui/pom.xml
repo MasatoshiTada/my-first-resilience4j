@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <resilience4j.version>0.17.0</resilience4j.version>
+        <resilience4j.version>1.0.0-SNAPSHOT</resilience4j.version>
     </properties>
 
     <dependencies>
@@ -47,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-prometheus</artifactId>
+            <artifactId>resilience4j-micrometer</artifactId>
             <version>${resilience4j.version}</version>
         </dependency>
         <dependency>
