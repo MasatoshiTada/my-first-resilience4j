@@ -36,7 +36,7 @@ public class HelloService {
     }
 
     private HelloResource recoverHello(Throwable throwable) {
-        logger.error("Recover in Service");
+        logger.error("Recover in Service : " + throwable.getClass().getName());
         return new HelloResource("default");
     }
 }
