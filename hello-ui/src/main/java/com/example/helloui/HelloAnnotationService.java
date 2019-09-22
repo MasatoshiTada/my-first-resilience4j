@@ -18,16 +18,16 @@ public class HelloAnnotationService {
     }
 
     @CircuitBreaker(name = "helloApi", fallbackMethod = "recoverHello")
-    public HelloResource hello() {
+    public Hello hello() {
         logger.info("Service hello() started.");
         String apiUrl = "http://localhost:8090/hello"; // URLは、本来はEurekaなどのService Discoveryで取得する
-        HelloResource helloResource = restTemplate.getForObject(apiUrl, HelloResource.class);
+        Hello hello = restTemplate.getForObject(apiUrl, Hello.class);
         logger.info("Service hello() finished.");
-        return helloResource;
+        return hello;
     }
 
-    private HelloResource recoverHello(Throwable throwable) {
+    private Hello recoverHello(Throwable throwable) {
         logger.error("Recover in Service : " + throwable.getClass().getName());
-        return new HelloResource("default");
+        return new Hello("default");
     }
 }

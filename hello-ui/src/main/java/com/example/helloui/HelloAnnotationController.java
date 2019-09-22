@@ -20,8 +20,8 @@ public class HelloAnnotationController {
     @GetMapping("/annotation")
     public String hello(Model model) {
         logger.info("Controller hello() started.");
-        HelloResource helloResource = helloAnnotationService.hello();
-        model.addAttribute("hello", helloResource);
+        Hello hello = helloAnnotationService.hello();
+        model.addAttribute("hello", hello);
         logger.info("Controller hello() finished.");
         return "index";
     }

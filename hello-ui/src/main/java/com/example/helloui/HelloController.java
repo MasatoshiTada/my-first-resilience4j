@@ -20,8 +20,8 @@ public class HelloController {
     @GetMapping("/")
     public String hello(Model model) {
         logger.info("Controller hello() started.");
-        HelloResource helloResource = helloService.hello();
-        model.addAttribute("hello", helloResource);
+        Hello hello = helloService.hello();
+        model.addAttribute("hello", hello);
         logger.info("Controller hello() finished.");
         return "index";
     }

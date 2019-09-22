@@ -22,21 +22,21 @@ public class HelloService {
         this.circuitBreaker = circuitBreakerRegistry.circuitBreaker("helloApi");
     }
 
-    public HelloResource hello() {
+    public Hello hello() {
         logger.info("Service hello() started.");
         String apiUrl = "http://localhost:8090/hello"; // URLは、本来はEurekaなどのService Discoveryで取得する
-        CheckedFunction0<HelloResource> decorateSupplier =
+        CheckedFunction0<Hello> decorateSupplier =
                 circuitBreaker.decorateCheckedSupplier(
-                        () -> restTemplate.getForObject(apiUrl, HelloResource.class));
-        Try<HelloResource> result = Try.of(decorateSupplier)
+                        () -> restTemplate.getForObject(apiUrl, Hello.class));
+        Try<Hello> result = Try.of(decorateSupplier)
                 .recover(this::recoverHello); // 失敗時の代替処理
-        HelloResource helloResource = result.get();
+        Hello hello = result.get();
         logger.info("Service hello() finished. Circuit = {}", circuitBreaker.getState());
-        return helloResource;
+        return hello;
     }
 
-    private HelloResource recoverHello(Throwable throwable) {
+    private Hello recoverHello(Throwable throwable) {
         logger.error("Recover in Service : " + throwable.getClass().getName());
-        return new HelloResource("default");
+        return new Hello("default");
     }
 }

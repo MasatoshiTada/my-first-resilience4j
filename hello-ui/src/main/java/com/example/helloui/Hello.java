@@ -1,14 +1,14 @@
 package com.example.helloui;
 
-public class HelloResource {
+public class Hello {
 
     private String message;
 
-    public HelloResource(String message) {
+    public Hello(String message) {
         this.message = message;
     }
 
-    public HelloResource() {
+    public Hello() {
     }
 
     public String getMessage() {
